@@ -36,16 +36,21 @@ Specificially, how can we do so using the snazzy functions Google has embedded i
 ```js
 const getNotes = (userId) => {
 
-    firebase.database().ref(`users/${userId}/notes`).orderByChild("title").on('value', snapshot => {
-        writeNotesToHTML(snapshot); 
-    })
-}
+  const notesRef = firebase.database().ref(`users/${userId}`);
+
+  notesRef.on('value', (snapshot) => {
+    const data = snapshot.val();
+    renderDataAsHtml(data);
+  });
+};
 ```
 
 This, like we've previously done, creates a `snapshot` JSON-like object that contains the notes given a specified `uid`. However, the new `snapshot` has a special `forEach(...)` property that will allow us to iterate over the items in the object, filtered by a desired child element. In this case, the child element we're sorting by is the `title` property.
 
-2. Now, we iterate over the loop. We call the `renderDataAsHTML()` function which does the job of rendering the HTML.
 ---
+
+2. Now, we iterate over the loop. We call the `renderDataAsHTML()` function which does the job of rendering the HTML.
+
 ### Code
 <details>
   <summary>Completed Solution</summary>
@@ -125,3 +130,8 @@ const renderDataAsHtml = (data) => {
 ---
 
 ### Explanation & Elaboration
+Comparing the code we can observe a few key differences:
+- First, we retrieve the data _slightly_ differently.
+  - We add `.orderByChild("title")` to the retrieval promise. What this does, according to Google's Firebase documentation, is:
+  - > Order results by the value of a specified child key or nested child path.
+
