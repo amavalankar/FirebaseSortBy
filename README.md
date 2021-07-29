@@ -132,6 +132,26 @@ const renderDataAsHtml = (data) => {
 ### Explanation & Elaboration
 Comparing the code we can observe a few key differences:
 - First, we retrieve the data _slightly_ differently.
-  - We add `.orderByChild("title")` to the retrieval promise. What this does, according to Google's Firebase documentation, is:
-  - > Order results by the value of a specified child key or nested child path.
+  - We add `.orderByChild("title")` to the retrieval promise. What this does, according to [Google's Firebase documentation (1)](https://firebase.google.com/docs/database/web/lists-of-data#sorting_and_filtering_data), is:
+    > Order results by the value of a specified child key or nested child path.
+  - We go to the `users > userID > notes` layer, and then the function call `.orderByChild("title")` goes into the note's child, and sorts by title.
+    -  The order of sorting (first to last) goes as follows: `null > false > true > numbers (0, 1, ...) > letters/unicode (a, b, ...) > objects (sorted by key names)`
+- Second, and most importantly, we iterate through the newly sequenced data using a `forEach(...)` loop.
+  - Initially, this is what stumped me, but a glance at the SDK's documentation can guide us towards the light! 
+  - When we pass the sorted data object to the `renderDataAsHTML()` function, we are passing a `snapshot` object, which you can read about [here (2)](https://firebase.google.com/docs/reference/node/firebase.database.DataSnapshot).
+  - As per the documentation linked above, the passed `snapshot` object, which is referred to within the `renderDataAsHTML()` function as `data`, has a few key attributes which will be useful:
+    - The `key` attribute (data.key) returns the location/index of the object. This is important as we use this for CRUD operations. This is equivalent to ` noteItem` in the old, unsorted code.
+    - The `forEach(...)` method is how we access the data with the specified order, as mentioned previously. The [documentation provided by Google says it best (3)](https://firebase.google.com/docs/reference/node/firebase.database.DataSnapshot#foreach):
+      > `forEach()` Enumerates the top-level children in the DataSnapshot.
+      
+      > Because of the way JavaScript objects work, the ordering of data in the JavaScript object returned by `val()` is not guaranteed to match the ordering on the server nor the ordering of `child_added` events. That is where `forEach()` comes in handy. It guarantees the children of a `DataSnapshot` will be iterated in their query order.
+      
+      > If no explicit `orderBy*()` method is used, results are returned ordered by key (unless priorities are used, in which case, results are returned by priority). 
+
+## Different Sorting & Filtering Techniques
+Using these techniques is the ideal way to sort and filter data in Firebase. Of course, we can sort and filter data in several different ways. This section will simply summarize the documentation outlined by Google, with some extra elaboration as needed.
+
+### Sorting Methods
+
+### Filtering Methods
 
