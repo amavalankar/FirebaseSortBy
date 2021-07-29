@@ -140,7 +140,7 @@ Comparing the code we can observe a few key differences:
   - Initially, this is what stumped me, but a glance at the SDK's documentation can guide us towards the light! 
   - When we pass the sorted data object to the `renderDataAsHTML()` function, we are passing a `snapshot` object, which you can read about [here (2)](https://firebase.google.com/docs/reference/node/firebase.database.DataSnapshot).
   - As per the documentation linked above, the passed `snapshot` object, which is referred to within the `renderDataAsHTML()` function as `data`, has a few key attributes which will be useful:
-    - The `key` attribute (data.key) returns the location/index of the object. This is important as we use this for CRUD operations. This is equivalent to ` noteItem` in the old, unsorted code.
+    - The `key` attribute (`data.key`) returns the location/index of the object. This is important as we use this for CRUD operations. This is equivalent to ` noteItem` in the old, unsorted code.
     - The `forEach(...)` method is how we access the data with the specified order, as mentioned previously. The [documentation provided by Google says it best (3)](https://firebase.google.com/docs/reference/node/firebase.database.DataSnapshot#foreach):
       > `forEach()` Enumerates the top-level children in the DataSnapshot.
       
@@ -152,6 +152,28 @@ Comparing the code we can observe a few key differences:
 Using these techniques is the ideal way to sort and filter data in Firebase. Of course, we can sort and filter data in several different ways. This section will simply summarize the documentation outlined by Google, with some extra elaboration as needed.
 
 ### Sorting Methods
+| Method         | Usage                                                                     |
+|----------------|---------------------------------------------------------------------------|
+| orderByChild() | Order results by the value of a specified child key or nested child path. |
+| orderByKey()   | Order results by child keys.                                              |
+| orderByValue() | Order results by child values.                                            |
+
+**Note: You can only use one sorting method at a time. Otherwise, you'll yield an error!**
 
 ### Filtering Methods
+| Method         	| Usage                                                                                                      	|
+|----------------	|------------------------------------------------------------------------------------------------------------	|
+| limitToFirst() 	| Sets the maximum number of items to return from the beginning of the ordered list of results.              	|
+| limitToLast()  	| Sets the maximum number of items to return from the end of the ordered list of results.                    	|
+| startAt()      	| Return items greater than or equal to the specified key or value, depending on the order-by method chosen. 	|
+| startAfter()   	| Return items greater than the specified key or value depending on the order-by method chosen.              	|
+| endAt()        	| Return items less than or equal to the specified key or value, depending on the order-by method chosen.    	|
+| endBefore()    	| Return items less than the specified key or value depending on the order-by method chosen.                 	|
+| equalTo()      	| Return items equal to the specified key or value, depending on the order-by method chosen.                 	|
 
+**Note: You can use multiple filters and combine them with one sorting method.**
+
+### Other Considerations
+Filtering and sorting will require some creativity. For example, you could sort the title alphabetically using the `orderByChild()` method, and then call `limitToFirst(50)` to retrieve the first 50 cards whose titles are sorted alphabetically.
+
+You can use the `limitToFirst(n)` and `limitToLast(n)` method calls without a sort-by function, but the other filters seem to rely (logically, at least), on a sorting function.
