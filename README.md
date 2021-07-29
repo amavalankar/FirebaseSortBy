@@ -38,11 +38,11 @@ const getNotes = (userId) => {
 
   const notesRef = firebase.database().ref(`users/${userId}`);
 
-  notesRef.on('value', (snapshot) => {
-    const data = snapshot.val();
-    renderDataAsHtml(data);
-  });
-};
+  // Do a similar .on(...) retrieval of data, but this time, sort the data using the .orderByChild(...) method.
+  notesRef.orderByChild("title").on('value', snapshot => {
+      writeNotesToHTML(snapshot); 
+  })
+}
 ```
 
 This, like we've previously done, creates a `snapshot` JSON-like object that contains the notes given a specified `uid`. However, the new `snapshot` has a special `forEach(...)` property that will allow us to iterate over the items in the object, filtered by a desired child element. In this case, the child element we're sorting by is the `title` property.
