@@ -1,8 +1,8 @@
-# How to Sort Through Items in a Firebase Realtime Database
-A brief solution to today's lab — (CSSI 102, Day #13)
+# Sorting Through Items in a Firebase Realtime Database 🔥 
+A brief solution to today's lab — (CSSI 102, Day #13) 💡 
 
-## Introduction
-As seen in today's _oddly spicy_ mild task, sorting through items in a Firebase JSON object using the provided functions is rather difficult! However, it's not impossible!
+## Introduction 👇🏽
+As seen in today's _oddly spicy 🌶_ mild task, sorting through items in a Firebase JSON object using the provided functions is rather difficult! However, it's not impossible! 👍 
 
 **The question of the hour is:** given the following data structure...
 ```json
@@ -27,11 +27,11 @@ As seen in today's _oddly spicy_ mild task, sorting through items in a Firebase 
   }
 }
 ```
-#### **... how can we sort by the title, in ascending order**?
+#### **... how can we sort by the title, in ascending order**? ⬆️ 
 
 Specificially, how can we do so using the snazzy functions Google has embedded into their Firebase Realtime Database, like `.orderByChild()`?
 
-## Solution
+## Solution 💡 
 1. First, we simply access the data like we normally do, but instead, add our sorting parameter before the `.on(...)` statement:
 ```js
 const getNotes = (userId) => {
@@ -51,9 +51,9 @@ This, like we've previously done, creates a `snapshot` JSON-like object that con
 
 2. Now, we iterate over the loop. We call the `renderDataAsHTML()` function which does the job of rendering the HTML.
 
-### Code
+### Code 💻 
 <details>
-  <summary>Completed Solution</summary>
+  <summary>🔎 Completed Solution</summary>
   
   ```javascript
   const getNotes = (userId) => {
@@ -91,7 +91,7 @@ This, like we've previously done, creates a `snapshot` JSON-like object that con
 </details>
 
 <details>
-  <summary>Previous/Old Solution</summary>
+  <summary>📓 Previous/Old Solution</summary>
   
   ```javascript
   const getNotes = (userId) => {
@@ -129,7 +129,7 @@ const renderDataAsHtml = (data) => {
 
 ---
 
-### Explanation & Elaboration
+### Explanation & Elaboration 👀
 Comparing the code we can observe a few key differences:
 - First, we retrieve the data _slightly_ differently.
   - We add `.orderByChild("title")` to the retrieval promise. What this does, according to [Google's Firebase documentation (1)](https://firebase.google.com/docs/database/web/lists-of-data#sorting_and_filtering_data), is:
@@ -148,10 +148,10 @@ Comparing the code we can observe a few key differences:
       
       > If no explicit `orderBy*()` method is used, results are returned ordered by key (unless priorities are used, in which case, results are returned by priority). 
 
-## Different Sorting & Filtering Techniques
+## Different Sorting & Filtering Techniques 🔀
 Using these techniques is the ideal way to sort and filter data in Firebase. Of course, we can sort and filter data in several different ways. This section will simply summarize the documentation outlined by Google, with some extra elaboration as needed.
 
-### Sorting Methods
+### Sorting Methods 📶
 | Method         | Usage                                                                     |
 |----------------|---------------------------------------------------------------------------|
 | `orderByChild()` | Order results by the value of a specified child key or nested child path. |
@@ -160,7 +160,7 @@ Using these techniques is the ideal way to sort and filter data in Firebase. Of 
 
 **Note: You can only use one sorting method at a time. Otherwise, you'll yield an error!**
 
-### Filtering Methods
+### Filtering Methods *️⃣
 | Method         	| Usage                                                                                                      	|
 |----------------	|------------------------------------------------------------------------------------------------------------	|
 | `limitToFirst()` 	| Sets the maximum number of items to return from the beginning of the ordered list of results.              	|
@@ -173,7 +173,7 @@ Using these techniques is the ideal way to sort and filter data in Firebase. Of 
 
 **Note: You can use multiple filters and combine them with one sorting method.**
 
-### Other Considerations
+### Other Considerations ✅
 Filtering and sorting will require some creativity. For example, you could sort the title alphabetically using the `orderByChild("title")` method, and then call `limitToFirst(50)` to retrieve the first 50 cards whose titles alphabetically by title
 
 You can use the `limitToFirst(n)` and `limitToLast(n)` method calls without a sort-by function, but the other filters seem to rely (logically, at least), on a sorting function.
