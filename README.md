@@ -174,6 +174,6 @@ Using these techniques is the ideal way to sort and filter data in Firebase. Of 
 **Note: You can use multiple filters and combine them with one sorting method.**
 
 ### Other Considerations
-Filtering and sorting will require some creativity. For example, you could sort the title alphabetically using the `orderByChild()` method, and then call `limitToFirst(50)` to retrieve the first 50 cards whose titles are sorted alphabetically.
+Filtering and sorting will require some creativity. For example, you could sort the title alphabetically using the `orderByChild("title")` method, and then call `limitToFirst(50)` to retrieve the first 50 cards whose titles alphabetically by title
 
 You can use the `limitToFirst(n)` and `limitToLast(n)` method calls without a sort-by function, but the other filters seem to rely (logically, at least), on a sorting function.
