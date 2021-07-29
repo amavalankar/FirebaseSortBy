@@ -154,22 +154,22 @@ Using these techniques is the ideal way to sort and filter data in Firebase. Of 
 ### Sorting Methods
 | Method         | Usage                                                                     |
 |----------------|---------------------------------------------------------------------------|
-| orderByChild() | Order results by the value of a specified child key or nested child path. |
-| orderByKey()   | Order results by child keys.                                              |
-| orderByValue() | Order results by child values.                                            |
+| `orderByChild()` | Order results by the value of a specified child key or nested child path. |
+| `orderByKey()`   | Order results by child keys.                                              |
+| `orderByValue()` | Order results by child values.                                            |
 
 **Note: You can only use one sorting method at a time. Otherwise, you'll yield an error!**
 
 ### Filtering Methods
 | Method         	| Usage                                                                                                      	|
 |----------------	|------------------------------------------------------------------------------------------------------------	|
-| limitToFirst() 	| Sets the maximum number of items to return from the beginning of the ordered list of results.              	|
-| limitToLast()  	| Sets the maximum number of items to return from the end of the ordered list of results.                    	|
-| startAt()      	| Return items greater than or equal to the specified key or value, depending on the order-by method chosen. 	|
-| startAfter()   	| Return items greater than the specified key or value depending on the order-by method chosen.              	|
-| endAt()        	| Return items less than or equal to the specified key or value, depending on the order-by method chosen.    	|
-| endBefore()    	| Return items less than the specified key or value depending on the order-by method chosen.                 	|
-| equalTo()      	| Return items equal to the specified key or value, depending on the order-by method chosen.                 	|
+| `limitToFirst()` 	| Sets the maximum number of items to return from the beginning of the ordered list of results.              	|
+| `limitToLast()`  	| Sets the maximum number of items to return from the end of the ordered list of results.                    	|
+| `startAt()`      	| Return items greater than or equal to the specified key or value, depending on the order-by method chosen. 	|
+| `startAfter()`   	| Return items greater than the specified key or value depending on the order-by method chosen.              	|
+| `endAt()`        	| Return items less than or equal to the specified key or value, depending on the order-by method chosen.    	|
+| `endBefore()`    	| Return items less than the specified key or value depending on the order-by method chosen.                 	|
+| `equalTo()`      	| Return items equal to the specified key or value, depending on the order-by method chosen.                 	|
 
 **Note: You can use multiple filters and combine them with one sorting method.**
 
